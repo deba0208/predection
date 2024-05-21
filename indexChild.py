@@ -25,6 +25,7 @@ df = pd.DataFrame(data)
 df = df.drop(columns=['_id', '__v'])
 df.dropna(subset=['time', 'AQI'], inplace=True)
 df.loc[:, ['nh4']] = np.where(df['nh4'] < 0, df['nh4'].median(), df['nh4'])
+df.loc[:, ['co2']] = np.where(df['co2'] <= 0, 400, df['co2'])
 df[["time", "date"]] = df["time"].str.split(" ", expand=True)
 df = df[["date", "time", "co2", "co", "nh4", "pm25",
          "TVOC", "Temperature", "Humidity", "AQI"]]
